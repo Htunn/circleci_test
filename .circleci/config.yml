@@ -22,32 +22,32 @@ jobs:
             # Download and cache dependencies
           - restore_cache:
                 keys:
-                - v1-dependencies-{{ checksum "requirements.txtx" }}
+                - v1-dependencies-{{ checksum "requirements.txt" }}
                 # fallback to using the latest cache if no exact math is found
                 - v1-dependencies-
 
           - run:
                 name: install dependencies
                 command: | 
-                    python3 -m venv venv
-                    .venv/bin/activate
+                    python3 -m venv .circleci_test
+                    .circleci_test/bin/activate
                     pip install requirements.txt
             
           - save_cache:
                 paths:
-                    - ./venv
+                    - ./circleci_test
                 key: v1-dependencies-{{ checksum "requirements.txt "}} 
             
             # run tests!
           - run:
                 name: run tests
                 command: | 
-                  . venv/bin/activate
+                  . circleci_test/bin/activate
                   make test
 
             # run lints!
           - run:
                 name: run lint
                 command: | 
-                  . venv/bin/activate
+                  . circleci_test/bin/activate
                   make lint
