@@ -1,3 +1,4 @@
+---
 version: 2.1
 
 orbs:
@@ -39,3 +40,23 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest
+
+			- run:
+					name: install dependencies
+					command: |
+						python3 -m venv venv
+						. venv/bin/activate
+						pip install -r requirements.txt
+			
+			# run tests!
+			- run:
+					name: run tests
+					command: |
+						. venv/bin/activate
+						make test
+			# run lints!
+			- run:
+					name: run lint
+					command: |
+						. venv/bin/activate
+						make lint
