@@ -16,6 +16,6 @@ run-circleci-local:
 		circleci local execute
 
 lint:
-		pylint --disable=R, C circleci_test cli web
+		pylint tests/*.py
 
 all: install lint test
